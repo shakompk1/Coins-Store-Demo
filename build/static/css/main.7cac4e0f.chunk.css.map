@@ -1,0 +1,1 @@
+{"version":3,"sources":["style.css"],"names":[],"mappings":"AAAA,KACI,YACJ,CACA,yBACI,KACI,QACJ,CACF","file":"main.7cac4e0f.chunk.css","sourcesContent":["body{\r\n    padding:0 5%;\r\n}\r\n@media (max-width: 768px) {\r\n    body{\r\n        margin:0;\r\n    }\r\n  }"]}
