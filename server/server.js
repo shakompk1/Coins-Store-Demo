@@ -16,10 +16,10 @@ app.use(cors());
 
 
 const pool = mysql.createPool({
-    host: process.env.DB_HOST ||'localhost',
-    user:process.env.DB_USER || 'root',
-    password:process.env.DB_PASS || 'Saxriyar001',
-    database:process.env.DB_NAME || 'coins'
+    host: 'eu-cdbr-west-03.cleardb.net',
+    user: 'b7920dbaf7d2bc',
+    password: '9b427a8d',
+    database: 'heroku_0b9ef14156e13dc',
 });
 app.get('/coins', (req, res) => {
     const type = req.query.type ? `WHERE type='${req.query.type}'` : 'WHERE id > 0';
