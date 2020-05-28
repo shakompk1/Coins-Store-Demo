@@ -78,7 +78,7 @@ app.get('/coins/search', (req, res) => {
     const yearIssueFromSql = yearIssueFrom ? `AND date>=${+yearIssueFrom}` : '';
     const yearIssueToSql = yearIssueTo ? `AND date<=${+yearIssueTo}` : '';
     const OrderBy = name ? `ORDER BY CASE  WHEN name LIKE '${name}%' THEN 1  WHEN name LIKE '%${information}' THEN 3  ELSE 2  END` : '';
-    const searchDataSql = `SELECT * FROM coins.coins WHERE(${nameInformation} ${countrySql}) ${compositionSql} ${qualitySql} ${priceFromSql} ${priceToSql} ${yearIssueFromSql} ${yearIssueToSql} AND status = 'true' ${OrderBy}`
+    const searchDataSql = `SELECT * FROM heroku_0b9ef14156e13dc.coins WHERE(${nameInformation} ${countrySql}) ${compositionSql} ${qualitySql} ${priceFromSql} ${priceToSql} ${yearIssueFromSql} ${yearIssueToSql} AND status = 'true' ${OrderBy}`
     pool.query(searchDataSql, (err, data) => {
         if (!err) {
             res.json(data)
@@ -89,7 +89,7 @@ app.get('/coins/search', (req, res) => {
 });
 app.get('/coins/column', (req, res) => {
     const { value } = req.query;
-    const columnFindSql = (`SELECT ${value} FROM coins.coins GROUP BY ${value} HAVING count(*) > 0; `)
+    const columnFindSql = (`SELECT ${value} FROM heroku_0b9ef14156e13dc.coins GROUP BY ${value} HAVING count(*) > 0; `)
     pool.query(columnFindSql, (err, data) => {
         if (!err) {
             res.json(data);
@@ -138,7 +138,7 @@ app.post('/login', (req, res) => {
                 const hash = bcrypt.hashSync(userPass, salt);
                 if (data[0].hash === hash) {
                     const newToken = randomString();
-                    pool.query(`UPDATE coins.users SET token = '${newToken}' WHERE login = '${userLogin}'; `)
+                    pool.query(`UPDATE heroku_0b9ef14156e13dc.users SET token = '${newToken}' WHERE login = '${userLogin}'; `)
                     res.json(({ login: userLogin, token: newToken, rol: data[0].rol }));
 
                 } else {
@@ -201,7 +201,7 @@ app.put('/coins/update', (req, res) => {
     pool.query(checkTokenSql, (err, data) => {
         if (!err) {
             if (data[0].token === user.token && data[0].rol === user.rol) {
-                const updateDataSql = `UPDATE coins.coins SET name = '${coins.name}', imgFrontUrl = '${coins.imgFrontUrl}', imgBackUrl = '${coins.imgBackUrl}', country = '${coins.country}', composition = '${coins.composition}', quality = '${coins.quality}', denomination = '${coins.denomination}', date = '${coins.date}', weight = '${coins.weight}', price = '${coins.price}', information = '${coins.information}', type = '${coins.type}' WHERE id = '${coins.id}'; `
+                const updateDataSql = `UPDATE heroku_0b9ef14156e13dc.coins SET name = '${coins.name}', imgFrontUrl = '${coins.imgFrontUrl}', imgBackUrl = '${coins.imgBackUrl}', country = '${coins.country}', composition = '${coins.composition}', quality = '${coins.quality}', denomination = '${coins.denomination}', date = '${coins.date}', weight = '${coins.weight}', price = '${coins.price}', information = '${coins.information}', type = '${coins.type}' WHERE id = '${coins.id}'; `
                 pool.query(updateDataSql, (err, data) => {
                     if (!err) {
                         res.send('4')
@@ -230,7 +230,7 @@ app.put('/coins/accept', (req, res) => {
     pool.query(checkTokenSql, (err, data) => {
         if (!err) {
             if (data[0].token === user.token && data[0].rol === user.rol) {
-                const updateDataSql = `UPDATE coins.coins SET status = 'true' WHERE id = '${coins.id}'; `
+                const updateDataSql = `UPDATE heroku_0b9ef14156e13dc.coins SET status = 'true' WHERE id = '${coins.id}'; `
                 pool.query(updateDataSql, (err, data) => {
                     if (!err) {
                         res.send(data)
