@@ -251,15 +251,15 @@ app.delete('/coins/delete/:id', (req, res) => {
     const login = req.body.login;
     const token = req.body.token;
     const rol = req.body.rol;
-    const checkTokenSql = `SELECT * FROM users WHERE login = '${login}'`
+    const checkTokenSql = `SELECT * FROM heroku_0b9ef14156e13dc.users WHERE login = '${login}'`
     pool.query(checkTokenSql, (err, data) => {
         if (!err) {
             if (data[0].token === token && data[0].rol === rol) {
                 const id = +req.params.id;
-                const deleteCoinsSql = (`DELETE FROM coins WHERE id = '${id}' `)
+                const deleteCoinsSql = (`DELETE FROM heroku_0b9ef14156e13dc.coins WHERE id = '${id}' `)
                 pool.query(deleteCoinsSql, (err, data) => {
                     if (!err) {
-                        pool.query('SELECT * FROM coins', (err, data) => {
+                        pool.query('SELECT * FROM heroku_0b9ef14156e13dc.coins', (err, data) => {
                             res.json(data)
                         })
                     } else {
