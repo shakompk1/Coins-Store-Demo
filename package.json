@@ -7,6 +7,8 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "antd": "^4.2.5",
+    "as-nav-link": "^0.1.5",
     "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
     "concurrently": "^5.2.0",
@@ -23,7 +25,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
-    "styled-components": "^5.1.0"
+    "styled-components": "^5.1.0",
+    "styled-icons": "^10.2.1"
   },
   "scripts": {
     "start": "node ./server/server.js"

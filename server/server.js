@@ -32,6 +32,41 @@ app.get('/coins', (req, res) => {
         }
     });
 });
+app.post('/coins/user/bgrep', (req, res) => {
+    console.log('gg')
+    const { name, text } = req.body;
+    const sendBqRepSql = (`INSERT INTO bagreporter(name,text) VALUES
+    ('${name}','${text}')`);
+    pool.query(sendBqRepSql, (err, data) => {
+        if (!err) {
+            res.json(data);
+        } else {
+            res.status(500);
+        }
+    })
+})
+app.get('/coins/user/bgrep', (req, res) => {
+    console.log('gg')
+    const takeBqRepSql = (`SELECT * FROM bagreporter`);
+    pool.query(takeBqRepSql, (err, data) => {
+        if (!err) {
+            res.json(data);
+        } else {
+            res.status(500);
+        }
+    })
+})
+app.get('/coins/page/:id', (req, res) => {
+    const idOfUser = Number(req.params.id);
+    const searchCoinsDataSql = `SELECT * FROM coins WHERE id=${idOfUser}`;
+    pool.query(searchCoinsDataSql, (err, data) => {
+        if (!err) {
+            res.json(data);
+        } else {
+            res.status(500);
+        }
+    })
+});
 app.get('/coins/search', (req, res) => {
     const { name, information, country, composition, quality, priceFrom, priceTo, yearIssueFrom, yearIssueTo } = req.query;
     const nameInformation = name ? `name LIKE '%${name}%' OR information LIKE '%${information}%'` : 'id > 0';
