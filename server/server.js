@@ -56,7 +56,7 @@ app.get('/coins/user/bgrep', (req, res) => {
         }
     })
 })
-app.get('/coins/page/:id', (req, res) => {
+app.get('/coins/page/take/:id', (req, res) => {
     const idOfUser = Number(req.params.id);
     const searchCoinsDataSql = `SELECT * FROM coins WHERE id=${idOfUser}`;
     pool.query(searchCoinsDataSql, (err, data) => {
